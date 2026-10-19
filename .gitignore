@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# builds
+dist/
+build/
+*.tsbuildinfo
+
+# local env and databases
+.env
+.env.*
+!.env.example
+*.sqlite3
+media/
+staticfiles/
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# local project notes
+/*.md
+!/README.md

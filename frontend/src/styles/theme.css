@@ -1,0 +1,350 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Aurevia theme — light + dark via [data-theme] on <html>
+   ============================================================ */
+
+:root,
+html[data-theme='light'] {
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --surface-2: #f0f1f6;
+  --border: #e2e4ec;
+  --text: #16181f;
+  --muted: #6b7280;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --accent: #06b6d4;
+  --success: #059669;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --info: #2563eb;
+  --chart-1: #4f46e5;
+  --chart-2: #06b6d4;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --chart-6: #8b5cf6;
+  --chart-7: #ec4899;
+  --chart-8: #84cc16;
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.08);
+  --radius: 12px;
+  --topbar-h: 64px;
+  --sidebar-w: 248px;
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  --bg: #0b0d14;
+  --surface: #12151f;
+  --surface-2: #1a1e2b;
+  --border: #262b3a;
+  --text: #e8eaf1;
+  --muted: #8b91a7;
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --accent: #22d3ee;
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #fbbf24;
+  --info: #60a5fa;
+  --chart-1: #818cf8;
+  --chart-2: #22d3ee;
+  --chart-3: #34d399;
+  --chart-4: #fbbf24;
+  --chart-5: #f87171;
+  --chart-6: #a78bfa;
+  --chart-7: #f472b6;
+  --chart-8: #a3e635;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.5);
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ============================================================
+   Component layer
+   ============================================================ */
+
+@layer components {
+  /* ---------- Buttons ---------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg font-medium text-sm transition-colors duration-150 cursor-pointer select-none whitespace-nowrap;
+    padding: 0.5rem 0.875rem;
+  }
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+  }
+  .btn-secondary {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--border);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .btn-danger {
+    background: var(--danger);
+    color: #fff;
+  }
+  .btn-danger:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+  .btn-sm {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.8125rem;
+  }
+  .btn-lg {
+    padding: 0.625rem 1.125rem;
+    font-size: 0.9375rem;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    @apply rounded-xl;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .card-pad {
+    @apply p-5;
+  }
+
+  /* ---------- Inputs ---------- */
+  .input,
+  .textarea,
+  .select {
+    @apply w-full rounded-lg text-sm;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+  }
+  .input::placeholder,
+  .textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .input:focus,
+  .textarea:focus,
+  .select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+  .input:disabled,
+  .textarea:disabled,
+  .select:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b91a7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.625rem center;
+    padding-right: 2.25rem;
+  }
+
+  .field-label {
+    @apply block text-sm font-medium mb-1.5;
+    color: var(--text);
+  }
+  .field-hint {
+    @apply text-xs mt-1;
+    color: var(--muted);
+  }
+
+  /* ---------- Badges ---------- */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full text-xs font-medium px-2 py-0.5;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-wrap {
+    @apply overflow-x-auto;
+  }
+  .table {
+    @apply w-full text-sm border-collapse;
+  }
+  .table thead th {
+    @apply text-left font-semibold text-xs uppercase tracking-wider px-4 py-3 whitespace-nowrap;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .table thead th:first-child {
+    border-top-left-radius: 8px;
+  }
+  .table thead th:last-child {
+    border-top-right-radius: 8px;
+  }
+  .table tbody td {
+    @apply px-4 py-3 border-b whitespace-nowrap;
+    border-color: color-mix(in srgb, var(--border) 60%, transparent);
+  }
+  .table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .table tbody tr:hover {
+    background: color-mix(in srgb, var(--primary) 4%, transparent);
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+    background: rgb(0 0 0 / 0.5);
+    backdrop-filter: blur(2px);
+    animation: fade-in 0.15s ease-out;
+  }
+  .modal-panel {
+    @apply card w-full max-w-lg max-h-[90vh] overflow-y-auto;
+    animation: slide-in 0.2s ease-out;
+  }
+
+  /* ---------- Skeleton ---------- */
+  .skeleton {
+    @apply rounded-md;
+    background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 50%, var(--surface-2) 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+
+  /* ---------- Tabs ---------- */
+  .tabs {
+    @apply flex gap-1 border-b;
+    border-color: var(--border);
+  }
+  .tab {
+    @apply px-3.5 py-2 text-sm font-medium rounded-t-lg border-b-2 -mb-px transition-colors cursor-pointer;
+    color: var(--muted);
+    border-color: transparent;
+  }
+  .tab:hover {
+    color: var(--text);
+    background: color-mix(in srgb, var(--primary) 5%, transparent);
+  }
+  .tab-active {
+    color: var(--primary);
+    border-color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* ---------- Sidebar / Topbar ---------- */
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors;
+    color: var(--muted);
+  }
+  .sidebar-link:hover {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .sidebar-link-active {
+    background: color-mix(in srgb, var(--primary) 12%, transparent);
+    color: var(--primary);
+  }
+
+  /* ---------- Misc ---------- */
+  .divider {
+    @apply my-4;
+    border-top: 1px solid var(--border);
+  }
+  .link {
+    color: var(--primary);
+    @apply font-medium hover:underline cursor-pointer;
+  }
+  .text-positive {
+    color: var(--success);
+  }
+  .text-negative {
+    color: var(--danger);
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full text-xs font-medium px-2.5 py-1 cursor-pointer border transition-colors;
+    border-color: var(--border);
+    color: var(--muted);
+    background: transparent;
+  }
+  .chip:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+  .chip-active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+  .progress-track {
+    @apply rounded-full overflow-hidden;
+    background: var(--surface-2);
+    height: 8px;
+  }
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-500;
+    background: var(--primary);
+  }
+  .page-title {
+    @apply text-2xl font-bold tracking-tight;
+  }
+  .page-sub {
+    color: var(--muted);
+    @apply text-sm mt-0.5;
+  }
+}
